@@ -55,6 +55,6 @@ msg:
 		DB		0x0a			; ‰üs
 		DB		0
 
-		RESB	0x7dfe-($-$$)		; 0x7dfe-$ C‰ü—¹ˆê‰º
+		RESB	0x1fe-($-$$)		; 0x7dfe-$ C‰ü—¹ˆê‰º
 
 		DB		0x55, 0xaa
