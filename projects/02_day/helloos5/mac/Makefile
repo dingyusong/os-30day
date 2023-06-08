@@ -1,10 +1,10 @@
 
-# àÒ?‘€ì
+# ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½
 
 default :
 	make img
 
-# •ª?§ì?‘œ
+# ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½
 
 ipl.bin : ipl.nas
 	nasm ipl.nas -o ipl.bin
@@ -16,7 +16,7 @@ helloos.img : ipl.bin floppy.img
 	dd if=ipl.bin of=floppy.img bs=512 count=1
 	mv floppy.img helloos.img
 
-# ??C§ì?‘œC?s
+# ??ï¿½Cï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½C?ï¿½s
 
 asm :
 	make -r ipl.bin
