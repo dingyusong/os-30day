@@ -1,4 +1,4 @@
-/* ƒ^ƒCƒ}ŠÖŒW */
+/* ï¿½^ï¿½Cï¿½}ï¿½ÖŒW */
 
 #include "bootpack.h"
 
@@ -15,7 +15,7 @@ void init_pit(void)
 
 void inthandler20(int *esp)
 {
-	io_out8(PIC0_OCW2, 0x60);	/* IRQ-00ó•tŠ®—¹‚ğPIC‚É’Ê’m */
-	/* ‚Æ‚è‚ ‚¦‚¸‚È‚É‚à‚µ‚È‚¢ */
+	io_out8(PIC0_OCW2, 0x60);	/* æŠŠIRQ-00ä¿¡å·æ¥æ”¶å®Œäº†çš„ä¿¡æ¯é€šçŸ¥ç»™PIC */
+	/* æš‚æ—¶ä»€ä¹ˆä¹Ÿä¸åš */
 	return;
 }

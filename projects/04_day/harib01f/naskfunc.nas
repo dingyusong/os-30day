@@ -1,10 +1,10 @@
 ; naskfunc
 ; TAB=4
 
-[FORMAT "WCOFF"]				; �I�u�W�F�N�g�t�@�C������郂�[�h	
-[INSTRSET "i486p"]				; 486�̖��߂܂Ŏg�������Ƃ����L�q
-[BITS 32]						; 32�r�b�g���[�h�p�̋@�B�����点��
-[FILE "naskfunc.nas"]			; �\�[�X�t�@�C�������
+[FORMAT "WCOFF"]				; �I�u�W�F�N�g�t�@�C������郂�[�h	
+[INSTRSET "i486p"]				; 486�̖��߂܂Ŏg�������Ƃ����L�q
+[BITS 32]						; 32�r�b�g���[�h�p�̋@�B�����点��
+[FILE "naskfunc.nas"]			; �\�[�X�t�@�C�������
 
 		GLOBAL	_io_hlt, _io_cli, _io_sti, _io_stihlt
 		GLOBAL	_io_in8,  _io_in16,  _io_in32
@@ -17,11 +17,11 @@ _io_hlt:	; void io_hlt(void);
 		HLT
 		RET
 
-_io_cli:	; void io_cli(void);
+_io_cli:	; void io_cli(void);将中断许可标志置为0，禁止中断
 		CLI
 		RET
 
-_io_sti:	; void io_sti(void);
+_io_sti:	; void io_sti(void);CPU接受来自外部设备的中断
 		STI
 		RET
 
@@ -65,13 +65,13 @@ _io_out32:	; void io_out32(int port, int data);
 		OUT		DX,EAX
 		RET
 
-_io_load_eflags:	; int io_load_eflags(void);
-		PUSHFD		; PUSH EFLAGS �Ƃ����Ӗ�
-		POP		EAX
+_io_load_eflags:	; int io_load_eflags(void); MARK：将标志寄存器的值读出来，返回给调用结果。
+		PUSHFD		; 指 PUSH EFLAGS。能够用来读写EFLAGS的，只有PUSHFD和POPFD指令。
+		POP		EAX	; EAX寄存器存放返回值，“PUSHFD POP EAX”，是指首先将EFLAGS压入栈，再将弹出的值代入 EAX。所以说它代替了“MOV EAX,EFLAGS”。
 		RET
 
-_io_store_eflags:	; void io_store_eflags(int eflags);
+_io_store_eflags:	; void io_store_eflags(int eflags);  MARK：恢复或者叫设置中断许可标志。
 		MOV		EAX,[ESP+4]
 		PUSH	EAX
-		POPFD		; POP EFLAGS �Ƃ����Ӗ�
+		POPFD		; POP EFLAGS �Ƃ����Ӗ�
 		RET

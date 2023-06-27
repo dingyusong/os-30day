@@ -8,30 +8,30 @@ void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
 void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1);
 
-#define COL8_000000		0
-#define COL8_FF0000		1
-#define COL8_00FF00		2
-#define COL8_FFFF00		3
-#define COL8_0000FF		4
-#define COL8_FF00FF		5
-#define COL8_00FFFF		6
-#define COL8_FFFFFF		7
-#define COL8_C6C6C6		8
-#define COL8_840000		9
-#define COL8_008400		10
-#define COL8_848400		11
-#define COL8_000084		12
-#define COL8_840084		13
-#define COL8_008484		14
-#define COL8_848484		15
+#define COL8_000000		0		//é»‘è‰²
+#define COL8_FF0000		1		//äº®çº¢è‰²
+#define COL8_00FF00		2		//äº®ç»¿è‰²
+#define COL8_FFFF00		3		//äº®é»„è‰²
+#define COL8_0000FF		4		//äº®è“è‰²
+#define COL8_FF00FF		5		//äº®ç´«è‰²
+#define COL8_00FFFF		6		//æµ…äº®è“è‰²
+#define COL8_FFFFFF		7		//ç™½è‰²
+#define COL8_C6C6C6		8		//äº®ç°è‰²
+#define COL8_840000		9		//æš—çº¢è‰²
+#define COL8_008400		10		//æš—ç»¿è‰²
+#define COL8_848400		11		//æš—é»„è‰²
+#define COL8_000084		12		//æš—é’è‰²
+#define COL8_840084		13		//æš—ç´«è‰²
+#define COL8_008484		14		//æµ…æš—è“è‰²
+#define COL8_848484		15		//æš—ç°è‰²
 
 void HariMain(void)
 {
-	char *p; /* p‚Æ‚¢‚¤•Ï”‚ÍABYTE [...]—p‚Ì”Ô’n */
+	char *p; /* pï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Ïï¿½ï¿½ÍABYTE [...]ï¿½pï¿½Ì”Ô’n */
 
-	init_palette(); /* ƒpƒŒƒbƒg‚ğİ’è */
+	init_palette(); /* ï¿½pï¿½ï¿½ï¿½bï¿½gï¿½ï¿½İ’ï¿½ */
 
-	p = (char *) 0xa0000; /* ”Ô’n‚ğ‘ã“ü */
+	p = (char *) 0xa0000; /* ï¿½Ô’nï¿½ï¿½ï¿½ï¿½ */
 
 	boxfill8(p, 320, COL8_FF0000,  20,  20, 120, 120);
 	boxfill8(p, 320, COL8_00FF00,  70,  50, 170, 150);
@@ -45,34 +45,34 @@ void HariMain(void)
 void init_palette(void)
 {
 	static unsigned char table_rgb[16 * 3] = {
-		0x00, 0x00, 0x00,	/*  0:• */
-		0xff, 0x00, 0x00,	/*  1:–¾‚é‚¢Ô */
-		0x00, 0xff, 0x00,	/*  2:–¾‚é‚¢—Î */
-		0xff, 0xff, 0x00,	/*  3:–¾‚é‚¢‰©F */
-		0x00, 0x00, 0xff,	/*  4:–¾‚é‚¢Â */
-		0xff, 0x00, 0xff,	/*  5:–¾‚é‚¢‡ */
-		0x00, 0xff, 0xff,	/*  6:–¾‚é‚¢…F */
-		0xff, 0xff, 0xff,	/*  7:”’ */
-		0xc6, 0xc6, 0xc6,	/*  8:–¾‚é‚¢ŠDF */
-		0x84, 0x00, 0x00,	/*  9:ˆÃ‚¢Ô */
-		0x00, 0x84, 0x00,	/* 10:ˆÃ‚¢—Î */
-		0x84, 0x84, 0x00,	/* 11:ˆÃ‚¢‰©F */
-		0x00, 0x00, 0x84,	/* 12:ˆÃ‚¢Â */
-		0x84, 0x00, 0x84,	/* 13:ˆÃ‚¢‡ */
-		0x00, 0x84, 0x84,	/* 14:ˆÃ‚¢…F */
-		0x84, 0x84, 0x84	/* 15:ˆÃ‚¢ŠDF */
+		0x00, 0x00, 0x00,	/*  0:ï¿½ï¿½ */
+		0xff, 0x00, 0x00,	/*  1:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ */
+		0x00, 0xff, 0x00,	/*  2:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ */
+		0xff, 0xff, 0x00,	/*  3:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ï¿½F */
+		0x00, 0x00, 0xff,	/*  4:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ */
+		0xff, 0x00, 0xff,	/*  5:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ */
+		0x00, 0xff, 0xff,	/*  6:ï¿½ï¿½ï¿½é‚¢ï¿½ï¿½ï¿½F */
+		0xff, 0xff, 0xff,	/*  7:ï¿½ï¿½ */
+		0xc6, 0xc6, 0xc6,	/*  8:ï¿½ï¿½ï¿½é‚¢ï¿½Dï¿½F */
+		0x84, 0x00, 0x00,	/*  9:ï¿½Ã‚ï¿½ï¿½ï¿½ */
+		0x00, 0x84, 0x00,	/* 10:ï¿½Ã‚ï¿½ï¿½ï¿½ */
+		0x84, 0x84, 0x00,	/* 11:ï¿½Ã‚ï¿½ï¿½ï¿½ï¿½F */
+		0x00, 0x00, 0x84,	/* 12:ï¿½Ã‚ï¿½ï¿½ï¿½ */
+		0x84, 0x00, 0x84,	/* 13:ï¿½Ã‚ï¿½ï¿½ï¿½ */
+		0x00, 0x84, 0x84,	/* 14:ï¿½Ã‚ï¿½ï¿½ï¿½ï¿½F */
+		0x84, 0x84, 0x84	/* 15:ï¿½Ã‚ï¿½ï¿½Dï¿½F */
 	};
 	set_palette(0, 15, table_rgb);
 	return;
 
-	/* static char –½—ß‚ÍAƒf[ƒ^‚É‚µ‚©g‚¦‚È‚¢‚¯‚ÇDB–½—ß‘Š“– */
+	/* static char ï¿½ï¿½ï¿½ß‚ÍAï¿½fï¿½[ï¿½^ï¿½É‚ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½DBï¿½ï¿½ï¿½ß‘ï¿½ï¿½ï¿½ */
 }
 
 void set_palette(int start, int end, unsigned char *rgb)
 {
 	int i, eflags;
-	eflags = io_load_eflags();	/* Š„‚è‚İ‹–‰Âƒtƒ‰ƒO‚Ì’l‚ğ‹L˜^‚·‚é */
-	io_cli(); 					/* ‹–‰Âƒtƒ‰ƒO‚ğ0‚É‚µ‚ÄŠ„‚è‚İ‹Ö~‚É‚·‚é */
+	eflags = io_load_eflags();	/* ï¿½ï¿½ï¿½èï¿½İ‹ï¿½ï¿½Âƒtï¿½ï¿½ï¿½Oï¿½Ì’lï¿½ï¿½ï¿½Lï¿½^ï¿½ï¿½ï¿½ï¿½ */
+	io_cli(); 					/* ï¿½ï¿½ï¿½Âƒtï¿½ï¿½ï¿½Oï¿½ï¿½0ï¿½É‚ï¿½ï¿½ÄŠï¿½ï¿½èï¿½İ‹Ö~ï¿½É‚ï¿½ï¿½ï¿½ */
 	io_out8(0x03c8, start);
 	for (i = start; i <= end; i++) {
 		io_out8(0x03c9, rgb[0] / 4);
@@ -80,10 +80,18 @@ void set_palette(int start, int end, unsigned char *rgb)
 		io_out8(0x03c9, rgb[2] / 4);
 		rgb += 3;
 	}
-	io_store_eflags(eflags);	/* Š„‚è‚İ‹–‰Âƒtƒ‰ƒO‚ğŒ³‚É–ß‚· */
+	io_store_eflags(eflags);	/* ï¿½ï¿½ï¿½èï¿½İ‹ï¿½ï¿½Âƒtï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½ */
 	return;
 }
 
+/// @brief MARK		: ï¼ˆå¾€bufå¯¹åº”çš„åŒºåŸŸå¡«å……å­—ç¬¦ï¼Œå¦‚æœbufæ˜¯æ˜¾å­˜ï¼Œåˆ™æ˜¾ç¤ºï¼Œå¦åˆ™åªæ˜¯æ„é€ bufï¼‰ç»˜åˆ¶ä¸€ä¸ªçŸ©å½¢(æœ‰ä¸€ä¸ªå¾ˆå¤§çš„ä½œç”¨å°±æ˜¯å°†åŸæ¥çš„å†…å®¹è¦†ç›–æ‰ï¼Œæ¯”å¦‚åŸæ¥åº•è‰²æ˜¯çº¢è‰²ï¼Œä½ å†™äº†ä¸ªAï¼Œç„¶åæƒ³å°†å…¶æ¸…æ¥šï¼Œå°±åœ¨é‚£å—ç»§ç»­ç»˜åˆ¶ä¸€ä¸ªçº¢è‰²çš„çŸ©å½¢å³å¯)
+/// @param vram 	: æ˜¾å­˜æ˜ å°„é¦–åœ°å€
+/// @param xsize 	: ç»˜åˆ¶çš„çŸ©å½¢çš„å®½åº¦
+/// @param c 		: é¢œè‰²
+/// @param x0 		: çŸ©å½¢å·¦ä¸Šè§’xè½´åæ ‡
+/// @param y0 		: çŸ©å½¢å·¦ä¸Šè§’yè½´åæ ‡
+/// @param x1 		: çŸ©å½¢å³ä¸‹è§’xè½´åæ ‡
+/// @param y1 		: çŸ©å½¢å³ä¸‹è§’yè½´åæ ‡
 void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1)
 {
 	int x, y;

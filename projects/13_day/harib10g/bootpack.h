@@ -1,10 +1,10 @@
 /* asmhead.nas */
 struct BOOTINFO { /* 0x0ff0-0x0fff */
-	char cyls; /* ƒu[ƒgƒZƒNƒ^‚Í‚Ç‚±‚Ü‚ÅƒfƒBƒXƒN‚ğ“Ç‚ñ‚¾‚Ì‚© */
-	char leds; /* ƒu[ƒg‚ÌƒL[ƒ{[ƒh‚ÌLED‚Ìó‘Ô */
-	char vmode; /* ƒrƒfƒIƒ‚[ƒh  ‰½ƒrƒbƒgƒJƒ‰[‚© */
+	char cyls; /* ï¿½uï¿½[ï¿½gï¿½Zï¿½Nï¿½^ï¿½Í‚Ç‚ï¿½ï¿½Ü‚Åƒfï¿½Bï¿½Xï¿½Nï¿½ï¿½Ç‚ñ‚¾‚Ì‚ï¿½ */
+	char leds; /* ï¿½uï¿½[ï¿½gï¿½ï¿½ï¿½ÌƒLï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½LEDï¿½Ìï¿½ï¿½ */
+	char vmode; /* ï¿½rï¿½fï¿½Iï¿½ï¿½ï¿½[ï¿½h  ï¿½ï¿½ï¿½rï¿½bï¿½gï¿½Jï¿½ï¿½ï¿½[ï¿½ï¿½ */
 	char reserve;
-	short scrnx, scrny; /* ‰æ–Ê‰ğ‘œ“x */
+	short scrnx, scrny; /* ï¿½ï¿½Ê‰ğ‘œ“x */
 	char *vram;
 };
 #define ADR_BOOTINFO	0x00000ff0
@@ -28,7 +28,9 @@ void asm_inthandler27(void);
 void asm_inthandler2c(void);
 unsigned int memtest_sub(unsigned int start, unsigned int end);
 
-/* fifo.c */
+/* fifo.c 
+charå·²ç»ä¸èƒ½æ»¡è¶³éœ€æ±‚äº†ï¼Œæ‰€ä»¥éœ€è¦ç”¨intæ¥ä»£æ›¿
+*/
 struct FIFO32 {
 	int *buf;
 	int p, q, size, free, flags;
@@ -122,12 +124,12 @@ void enable_mouse(struct FIFO32 *fifo, int data0, struct MOUSE_DEC *mdec);
 int mouse_decode(struct MOUSE_DEC *mdec, unsigned char dat);
 
 /* memory.c */
-#define MEMMAN_FREES		4090	/* ‚±‚ê‚Å–ñ32KB */
+#define MEMMAN_FREES		4090	/* ï¿½ï¿½ï¿½ï¿½Å–ï¿½32KB */
 #define MEMMAN_ADDR			0x003c0000
-struct FREEINFO {	/* ‚ ‚«î•ñ */
+struct FREEINFO {	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	unsigned int addr, size;
 };
-struct MEMMAN {		/* ƒƒ‚ƒŠŠÇ— */
+struct MEMMAN {		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç—ï¿½ */
 	int frees, maxfrees, lostsize, losts;
 	struct FREEINFO free[MEMMAN_FREES];
 };

@@ -1,4 +1,4 @@
-/* ƒ}ƒEƒX‚âƒEƒBƒ“ƒhƒE‚Ìd‚Ë‡‚í‚¹ˆ— */
+/* ï¿½}ï¿½Eï¿½Xï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìdï¿½Ëï¿½ï¿½í‚¹ï¿½ï¿½ï¿½ï¿½ */
 
 #include "bootpack.h"
 
@@ -15,9 +15,9 @@ struct SHTCTL *shtctl_init(struct MEMMAN *memman, unsigned char *vram, int xsize
 	ctl->vram = vram;
 	ctl->xsize = xsize;
 	ctl->ysize = ysize;
-	ctl->top = -1; /* ƒV[ƒg‚Íˆê–‡‚à‚È‚¢ */
+	ctl->top = -1; /* ï¿½Vï¿½[ï¿½gï¿½Íˆê–‡ï¿½ï¿½ï¿½È‚ï¿½ */
 	for (i = 0; i < MAX_SHEETS; i++) {
-		ctl->sheets0[i].flags = 0; /* –¢g—pƒ}[ƒN */
+		ctl->sheets0[i].flags = 0; /* ï¿½ï¿½ï¿½gï¿½pï¿½}ï¿½[ï¿½N */
 	}
 err:
 	return ctl;
@@ -30,12 +30,12 @@ struct SHEET *sheet_alloc(struct SHTCTL *ctl)
 	for (i = 0; i < MAX_SHEETS; i++) {
 		if (ctl->sheets0[i].flags == 0) {
 			sht = &ctl->sheets0[i];
-			sht->flags = SHEET_USE; /* g—p’†ƒ}[ƒN */
-			sht->height = -1; /* ”ñ•\¦’† */
+			sht->flags = SHEET_USE; /* ï¿½gï¿½pï¿½ï¿½ï¿½}ï¿½[ï¿½N */
+			sht->height = -1; /* ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ */
 			return sht;
 		}
 	}
-	return 0;	/* ‘S‚Ä‚ÌƒV[ƒg‚ªg—p’†‚¾‚Á‚½ */
+	return 0;	/* ï¿½Sï¿½Ä‚ÌƒVï¿½[ï¿½gï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 }
 
 void sheet_setbuf(struct SHEET *sht, unsigned char *buf, int xsize, int ysize, int col_inv)
@@ -47,6 +47,12 @@ void sheet_setbuf(struct SHEET *sht, unsigned char *buf, int xsize, int ysize, i
 	return;
 }
 
+/// @brief ä»…ä»…å¯¹å›¾å±‚çš„æŸä¸ªç‰¹å®šåŒºåŸŸè¿›è¡Œç»˜åˆ¶ã€‚æœ€åº•éƒ¨çš„ä¸¤å±‚å¾ªç¯ï¼Œå°å¾—å¤šï¼Œå‰ä¸€ä¸ªæ–¹æ¡ˆæœ€åº•éƒ¨çš„ä¸¤å±‚å¾ªç¯éƒ½æ˜¯ä»0åˆ°å®½åº¦ã€‚
+/// @param ctl 
+/// @param vx0 
+/// @param vy0 
+/// @param vx1 
+/// @param vy1 
 void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)
 {
 	int h, bx, by, vx, vy, bx0, by0, bx1, by1;
@@ -55,7 +61,7 @@ void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)
 	for (h = 0; h <= ctl->top; h++) {
 		sht = ctl->sheets[h];
 		buf = sht->buf;
-		/* vx0`vy1‚ğg‚Á‚ÄAbx0`by1‚ğ‹tZ‚·‚é */
+		/* ä½¿ç”¨vx0~vy1ï¼Œå¯¹bx0~by1è¿›è¡Œå€’æ¨ */
 		bx0 = vx0 - sht->vx0;
 		by0 = vy0 - sht->vy0;
 		bx1 = vx1 - sht->vx0;
@@ -80,53 +86,53 @@ void sheet_refreshsub(struct SHTCTL *ctl, int vx0, int vy0, int vx1, int vy1)
 
 void sheet_updown(struct SHTCTL *ctl, struct SHEET *sht, int height)
 {
-	int h, old = sht->height; /* İ’è‘O‚Ì‚‚³‚ğ‹L‰¯‚·‚é */
+	int h, old = sht->height; /* ï¿½İ’ï¿½Oï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 
-	/* w’è‚ª’á‚·‚¬‚â‚‚·‚¬‚¾‚Á‚½‚çAC³‚·‚é */
+	/* ï¿½wï¿½è‚ªï¿½á‚·ï¿½ï¿½ï¿½â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	if (height > ctl->top + 1) {
 		height = ctl->top + 1;
 	}
 	if (height < -1) {
 		height = -1;
 	}
-	sht->height = height; /* ‚‚³‚ğİ’è */
+	sht->height = height; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½ */
 
-	/* ˆÈ‰º‚Íå‚Ésheets[]‚Ì•À‚×‘Ö‚¦ */
-	if (old > height) {	/* ˆÈ‘O‚æ‚è‚à’á‚­‚È‚é */
+	/* ï¿½È‰ï¿½ï¿½Íï¿½ï¿½sheets[]ï¿½Ì•ï¿½ï¿½×‘Ö‚ï¿½ */
+	if (old > height) {	/* ï¿½È‘Oï¿½ï¿½ï¿½ï¿½ï¿½á‚­ï¿½È‚ï¿½ */
 		if (height >= 0) {
-			/* ŠÔ‚Ì‚à‚Ì‚ğˆø‚«ã‚°‚é */
+			/* ï¿½Ô‚Ì‚ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½ */
 			for (h = old; h > height; h--) {
 				ctl->sheets[h] = ctl->sheets[h - 1];
 				ctl->sheets[h]->height = h;
 			}
 			ctl->sheets[height] = sht;
-		} else {	/* ”ñ•\¦‰» */
+		} else {	/* ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ */
 			if (ctl->top > old) {
-				/* ã‚É‚È‚Á‚Ä‚¢‚é‚à‚Ì‚ğ‚¨‚ë‚· */
+				/* ï¿½ï¿½É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ë‚· */
 				for (h = old; h < ctl->top; h++) {
 					ctl->sheets[h] = ctl->sheets[h + 1];
 					ctl->sheets[h]->height = h;
 				}
 			}
-			ctl->top--; /* •\¦’†‚Ì‰º‚¶‚«‚ªˆê‚ÂŒ¸‚é‚Ì‚ÅAˆê”Ôã‚Ì‚‚³‚ªŒ¸‚é */
+			ctl->top--; /* ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂŒï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½Ôï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		}
 		sheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);
-	} else if (old < height) {	/* ˆÈ‘O‚æ‚è‚à‚‚­‚È‚é */
+	} else if (old < height) {	/* ï¿½È‘Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ */
 		if (old >= 0) {
-			/* ŠÔ‚Ì‚à‚Ì‚ğ‰Ÿ‚µ‰º‚°‚é */
+			/* ï¿½Ô‚Ì‚ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 			for (h = old; h < height; h++) {
 				ctl->sheets[h] = ctl->sheets[h + 1];
 				ctl->sheets[h]->height = h;
 			}
 			ctl->sheets[height] = sht;
-		} else {	/* ”ñ•\¦ó‘Ô‚©‚ç•\¦ó‘Ô‚Ö */
-			/* ã‚É‚È‚é‚à‚Ì‚ğ‚¿ã‚°‚é */
+		} else {	/* ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ */
+			/* ï¿½ï¿½É‚È‚ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã‚°ï¿½ï¿½ */
 			for (h = ctl->top; h >= height; h--) {
 				ctl->sheets[h + 1] = ctl->sheets[h];
 				ctl->sheets[h + 1]->height = h + 1;
 			}
 			ctl->sheets[height] = sht;
-			ctl->top++; /* •\¦’†‚Ì‰º‚¶‚«‚ªˆê‚Â‘‚¦‚é‚Ì‚ÅAˆê”Ôã‚Ì‚‚³‚ª‘‚¦‚é */
+			ctl->top++; /* ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‘ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½Ôï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		}
 		sheet_refreshsub(ctl, sht->vx0, sht->vy0, sht->vx0 + sht->bxsize, sht->vy0 + sht->bysize);
 	}
@@ -135,7 +141,7 @@ void sheet_updown(struct SHTCTL *ctl, struct SHEET *sht, int height)
 
 void sheet_refresh(struct SHTCTL *ctl, struct SHEET *sht, int bx0, int by0, int bx1, int by1)
 {
-	if (sht->height >= 0) { /* ‚à‚µ‚à•\¦’†‚È‚çAV‚µ‚¢‰º‚¶‚«‚Ìî•ñ‚É‰ˆ‚Á‚Ä‰æ–Ê‚ğ•`‚«’¼‚· */
+	if (sht->height >= 0) { /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½Aï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä‰ï¿½Ê‚ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		sheet_refreshsub(ctl, sht->vx0 + bx0, sht->vy0 + by0, sht->vx0 + bx1, sht->vy0 + by1);
 	}
 	return;
@@ -146,7 +152,7 @@ void sheet_slide(struct SHTCTL *ctl, struct SHEET *sht, int vx0, int vy0)
 	int old_vx0 = sht->vx0, old_vy0 = sht->vy0;
 	sht->vx0 = vx0;
 	sht->vy0 = vy0;
-	if (sht->height >= 0) { /* ‚à‚µ‚à•\¦’†‚È‚çAV‚µ‚¢‰º‚¶‚«‚Ìî•ñ‚É‰ˆ‚Á‚Ä‰æ–Ê‚ğ•`‚«’¼‚· */
+	if (sht->height >= 0) { /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½Aï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä‰ï¿½Ê‚ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		sheet_refreshsub(ctl, old_vx0, old_vy0, old_vx0 + sht->bxsize, old_vy0 + sht->bysize);
 		sheet_refreshsub(ctl, vx0, vy0, vx0 + sht->bxsize, vy0 + sht->bysize);
 	}
@@ -156,8 +162,8 @@ void sheet_slide(struct SHTCTL *ctl, struct SHEET *sht, int vx0, int vy0)
 void sheet_free(struct SHTCTL *ctl, struct SHEET *sht)
 {
 	if (sht->height >= 0) {
-		sheet_updown(ctl, sht, -1); /* •\¦’†‚È‚ç‚Ü‚¸”ñ•\¦‚É‚·‚é */
+		sheet_updown(ctl, sht, -1); /* ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½Ü‚ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ */
 	}
-	sht->flags = 0; /* –¢g—pƒ}[ƒN */
+	sht->flags = 0; /* ï¿½ï¿½ï¿½gï¿½pï¿½}ï¿½[ï¿½N */
 	return;
 }

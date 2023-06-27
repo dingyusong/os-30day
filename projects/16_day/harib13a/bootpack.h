@@ -1,10 +1,10 @@
 /* asmhead.nas */
 struct BOOTINFO { /* 0x0ff0-0x0fff */
-	char cyls; /* ƒu[ƒgƒZƒNƒ^‚Í‚Ç‚±‚Ü‚ÅƒfƒBƒXƒN‚ğ“Ç‚ñ‚¾‚Ì‚© */
-	char leds; /* ƒu[ƒg‚ÌƒL[ƒ{[ƒh‚ÌLED‚Ìó‘Ô */
-	char vmode; /* ƒrƒfƒIƒ‚[ƒh  ‰½ƒrƒbƒgƒJƒ‰[‚© */
+	char cyls; /* ï¿½uï¿½[ï¿½gï¿½Zï¿½Nï¿½^ï¿½Í‚Ç‚ï¿½ï¿½Ü‚Åƒfï¿½Bï¿½Xï¿½Nï¿½ï¿½Ç‚ñ‚¾‚Ì‚ï¿½ */
+	char leds; /* ï¿½uï¿½[ï¿½gï¿½ï¿½ï¿½ÌƒLï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½LEDï¿½Ìï¿½ï¿½ */
+	char vmode; /* ï¿½rï¿½fï¿½Iï¿½ï¿½ï¿½[ï¿½h  ï¿½ï¿½ï¿½rï¿½bï¿½gï¿½Jï¿½ï¿½ï¿½[ï¿½ï¿½ */
 	char reserve;
-	short scrnx, scrny; /* ‰æ–Ê‰ğ‘œ“x */
+	short scrnx, scrny; /* ï¿½ï¿½Ê‰ğ‘œ“x */
 	char *vram;
 };
 #define ADR_BOOTINFO	0x00000ff0
@@ -125,12 +125,12 @@ void enable_mouse(struct FIFO32 *fifo, int data0, struct MOUSE_DEC *mdec);
 int mouse_decode(struct MOUSE_DEC *mdec, unsigned char dat);
 
 /* memory.c */
-#define MEMMAN_FREES		4090	/* ‚±‚ê‚Å–ñ32KB */
+#define MEMMAN_FREES		4090	/* ï¿½ï¿½ï¿½ï¿½Å–ï¿½32KB */
 #define MEMMAN_ADDR			0x003c0000
-struct FREEINFO {	/* ‚ ‚«î•ñ */
+struct FREEINFO {	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	unsigned int addr, size;
 };
-struct MEMMAN {		/* ƒƒ‚ƒŠŠÇ— */
+struct MEMMAN {		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç—ï¿½ */
 	int frees, maxfrees, lostsize, losts;
 	struct FREEINFO free[MEMMAN_FREES];
 };
@@ -185,21 +185,28 @@ void timer_settime(struct TIMER *timer, unsigned int timeout);
 void inthandler20(int *esp);
 
 /* mtask.c */
-#define MAX_TASKS		1000	/* Å‘åƒ^ƒXƒN” */
-#define TASK_GDT0		3		/* TSS‚ğGDT‚Ì‰½”Ô‚©‚çŠ„‚è“–‚Ä‚é‚Ì‚© */
+#define MAX_TASKS		1000	/* ï¿½Å‘ï¿½^ï¿½Xï¿½Nï¿½ï¿½ */
+#define TASK_GDT0		3		/* TSSï¿½ï¿½GDTï¿½Ì‰ï¿½ï¿½Ô‚ï¿½ï¿½çŠ„ï¿½è“–ï¿½Ä‚ï¿½Ì‚ï¿½ */
 struct TSS32 {
 	int backlink, esp0, ss0, esp1, ss1, esp2, ss2, cr3;
 	int eip, eflags, eax, ecx, edx, ebx, esp, ebp, esi, edi;
 	int es, cs, ss, ds, fs, gs;
 	int ldtr, iomap;
 };
+
+/*
+sel: selè¿™ä¸ªå˜é‡æ¥å­˜æ”¾GDTç¼–å·ï¼Œselæ˜¯â€œselectorâ€çš„ç¼©å†™ï¼Œæ„ä¸ºé€‰æ‹©ç¬¦
+flags: flagså˜é‡ç”¨æ¥å­˜æ”¾ä»»åŠ¡çŠ¶æ€ï¼Œflagsæ˜¯â€œflagâ€çš„å¤æ•°å½¢å¼ï¼Œæ„ä¸ºæ ‡å¿—  1:ä¼‘çœ ä¸­ 2:æ´»åŠ¨ä¸­
+tss: tsså˜é‡ç”¨æ¥å­˜æ”¾ä»»åŠ¡æ‰€ç”¨çš„TSSï¼ˆä»»åŠ¡çŠ¶æ€æ®µï¼‰çš„ä¿¡æ¯
+*/
+*/
 struct TASK {
-	int sel, flags; /* sel‚ÍGDT‚Ì”Ô†‚Ì‚±‚Æ */
+	int sel, flags; /* selï¿½ï¿½GDTï¿½Ì”Ôï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ */
 	struct TSS32 tss;
 };
 struct TASKCTL {
-	int running; /* “®ì‚µ‚Ä‚¢‚éƒ^ƒXƒN‚Ì” */
-	int now; /* Œ»İ“®ì‚µ‚Ä‚¢‚éƒ^ƒXƒN‚ª‚Ç‚ê‚¾‚©•ª‚©‚é‚æ‚¤‚É‚·‚é‚½‚ß‚Ì•Ï” */
+	int running; /* ï¿½ï¿½ï¿½ì‚µï¿½Ä‚ï¿½ï¿½ï¿½^ï¿½Xï¿½Nï¿½Ìï¿½ */
+	int now; /* ï¿½ï¿½ï¿½İ“ï¿½ï¿½ì‚µï¿½Ä‚ï¿½ï¿½ï¿½^ï¿½Xï¿½Nï¿½ï¿½ï¿½Ç‚ê‚¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚Ì•Ïï¿½ */
 	struct TASK *tasks[MAX_TASKS];
 	struct TASK tasks0[MAX_TASKS];
 };

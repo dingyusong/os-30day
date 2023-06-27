@@ -1,10 +1,10 @@
 /* asmhead.nas */
 struct BOOTINFO { /* 0x0ff0-0x0fff */
-	char cyls; /* ƒu[ƒgƒZƒNƒ^‚Í‚Ç‚±‚Ü‚ÅƒfƒBƒXƒN‚ğ“Ç‚ñ‚¾‚Ì‚© */
-	char leds; /* ƒu[ƒg‚ÌƒL[ƒ{[ƒh‚ÌLED‚Ìó‘Ô */
-	char vmode; /* ƒrƒfƒIƒ‚[ƒh  ‰½ƒrƒbƒgƒJƒ‰[‚© */
+	char cyls; /* ï¿½uï¿½[ï¿½gï¿½Zï¿½Nï¿½^ï¿½Í‚Ç‚ï¿½ï¿½Ü‚Åƒfï¿½Bï¿½Xï¿½Nï¿½ï¿½Ç‚ñ‚¾‚Ì‚ï¿½ */
+	char leds; /* ï¿½uï¿½[ï¿½gï¿½ï¿½ï¿½ÌƒLï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½LEDï¿½Ìï¿½ï¿½ */
+	char vmode; /* ï¿½rï¿½fï¿½Iï¿½ï¿½ï¿½[ï¿½h  ï¿½ï¿½ï¿½rï¿½bï¿½gï¿½Jï¿½ï¿½ï¿½[ï¿½ï¿½ */
 	char reserve;
-	short scrnx, scrny; /* ‰æ–Ê‰ğ‘œ“x */
+	short scrnx, scrny; /* ï¿½ï¿½Ê‰ğ‘œ“x */
 	char *vram;
 };
 #define ADR_BOOTINFO	0x00000ff0
@@ -64,6 +64,6 @@ void set_gatedesc(struct GATE_DESCRIPTOR *gd, int offset, int selector, int ar);
 #define ADR_GDT			0x00270000
 #define LIMIT_GDT		0x0000ffff
 #define ADR_BOTPAK		0x00280000
-#define LIMIT_BOTPAK	0x0007ffff
-#define AR_DATA32_RW	0x4092
-#define AR_CODE32_ER	0x409a
+#define LIMIT_BOTPAK	0x0007ffff	//MARK: 
+#define AR_DATA32_RW	0x4092  //MARK: 0x4092 = 0100 0000 1001 0010 æ•°æ®æ®µå¯è¯»å¯å†™
+#define AR_CODE32_ER	0x409a	//MARK: 0x409a = 0100 0000 1001 1010 ä»£ç æ®µå¯è¯»å¯æ‰§è¡Œ

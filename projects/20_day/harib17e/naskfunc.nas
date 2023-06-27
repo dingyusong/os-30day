@@ -1,10 +1,10 @@
 ; naskfunc
 ; TAB=4
 
-[FORMAT "WCOFF"]				; ƒIƒuƒWƒFƒNƒgƒtƒ@ƒCƒ‹‚ðì‚éƒ‚[ƒh	
-[INSTRSET "i486p"]				; 486‚Ì–½—ß‚Ü‚ÅŽg‚¢‚½‚¢‚Æ‚¢‚¤‹Lq
-[BITS 32]						; 32ƒrƒbƒgƒ‚[ƒh—p‚Ì‹@ŠBŒê‚ðì‚ç‚¹‚é
-[FILE "naskfunc.nas"]			; ƒ\[ƒXƒtƒ@ƒCƒ‹–¼î•ñ
+[FORMAT "WCOFF"]				; ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½éƒ‚ï¿½[ï¿½h	
+[INSTRSET "i486p"]				; 486ï¿½Ì–ï¿½ï¿½ß‚Ü‚ÅŽgï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Lï¿½q
+[BITS 32]						; 32ï¿½rï¿½bï¿½gï¿½ï¿½ï¿½[ï¿½hï¿½pï¿½Ì‹@ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ç‚¹ï¿½ï¿½
+[FILE "naskfunc.nas"]			; ï¿½\ï¿½[ï¿½Xï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		GLOBAL	_io_hlt, _io_cli, _io_sti, _io_stihlt
 		GLOBAL	_io_in8,  _io_in16,  _io_in32
@@ -77,14 +77,14 @@ _io_out32:	; void io_out32(int port, int data);
 		RET
 
 _io_load_eflags:	; int io_load_eflags(void);
-		PUSHFD		; PUSH EFLAGS ‚Æ‚¢‚¤ˆÓ–¡
+		PUSHFD		; PUSH EFLAGS ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Ó–ï¿½
 		POP		EAX
 		RET
 
 _io_store_eflags:	; void io_store_eflags(int eflags);
 		MOV		EAX,[ESP+4]
 		PUSH	EAX
-		POPFD		; POP EFLAGS ‚Æ‚¢‚¤ˆÓ–¡
+		POPFD		; POP EFLAGS ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Ó–ï¿½
 		RET
 
 _load_gdtr:		; void load_gdtr(int limit, int addr);
@@ -177,7 +177,7 @@ _asm_inthandler2c:
 		IRETD
 
 _memtest_sub:	; unsigned int memtest_sub(unsigned int start, unsigned int end)
-		PUSH	EDI						; iEBX, ESI, EDI ‚àŽg‚¢‚½‚¢‚Ì‚Åj
+		PUSH	EDI						; ï¿½iEBX, ESI, EDI ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Åj
 		PUSH	ESI
 		PUSH	EBX
 		MOV		ESI,0xaa55aa55			; pat0 = 0xaa55aa55;
@@ -220,10 +220,10 @@ _farcall:		; void farcall(int eip, int cs);
 _asm_cons_putchar:
 		STI
 		PUSH	1
-		AND		EAX,0xff	; AH‚âEAX‚ÌãˆÊ‚ð0‚É‚µ‚ÄAEAX‚É•¶ŽšƒR[ƒh‚ª“ü‚Á‚½ó‘Ô‚É‚·‚éB
+		AND		EAX,0xff	; AHï¿½ï¿½EAXï¿½Ìï¿½Ê‚ï¿½0ï¿½É‚ï¿½ï¿½ÄAEAXï¿½É•ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½B
 		PUSH	EAX
-		PUSH	DWORD [0x0fec]	; ƒƒ‚ƒŠ‚Ì“à—e‚ð“Ç‚Ýž‚ñ‚Å‚»‚Ì’l‚ðPUSH‚·‚é
+		PUSH	DWORD [0x0fec]	; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì“ï¿½ï¿½eï¿½ï¿½Ç‚Ýï¿½ï¿½ï¿½Å‚ï¿½ï¿½Ì’lï¿½ï¿½PUSHï¿½ï¿½ï¿½ï¿½
 		CALL	_cons_putchar
-		ADD		ESP,12		; ƒXƒ^ƒbƒN‚ÉÏ‚ñ‚¾ƒf[ƒ^‚ðŽÌ‚Ä‚é
+		ADD		ESP,12		; ï¿½Xï¿½^ï¿½bï¿½Nï¿½ÉÏ‚ñ‚¾ƒfï¿½[ï¿½^ï¿½ï¿½ï¿½Ì‚Ä‚ï¿½
 		IRETD
 

@@ -1,4 +1,4 @@
-/* bootpack‚ÌƒƒCƒ“ */
+/* bootpackï¿½Ìƒï¿½ï¿½Cï¿½ï¿½ */
 
 #include "bootpack.h"
 #include <stdio.h>
@@ -22,12 +22,12 @@ void HariMain(void)
 
 	init_gdtidt();
 	init_pic();
-	io_sti(); /* IDT/PIC‚Ì‰Šú‰»‚ªI‚í‚Á‚½‚Ì‚ÅCPU‚ÌŠ„‚è‚İ‹Ö~‚ğ‰ğœ */
+	io_sti(); /* IDT/PICï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½CPUï¿½ÌŠï¿½ï¿½èï¿½İ‹Ö~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	fifo8_init(&keyfifo, 32, keybuf);
 	fifo8_init(&mousefifo, 128, mousebuf);
 	init_pit();
-	io_out8(PIC0_IMR, 0xf8); /* PIT‚ÆPIC1‚ÆƒL[ƒ{[ƒh‚ğ‹–‰Â(11111000) */
-	io_out8(PIC1_IMR, 0xef); /* ƒ}ƒEƒX‚ğ‹–‰Â(11101111) */
+	io_out8(PIC0_IMR, 0xf8); /* PITï¿½ï¿½PIC1ï¿½ÆƒLï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(11111000) */
+	io_out8(PIC1_IMR, 0xef); /* ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(11101111) */
 
 	fifo8_init(&timerfifo, 8, timerbuf);
 	timer = timer_alloc();
@@ -56,14 +56,14 @@ void HariMain(void)
 	sht_win   = sheet_alloc(shtctl);
 	buf_back  = (unsigned char *) memman_alloc_4k(memman, binfo->scrnx * binfo->scrny);
 	buf_win   = (unsigned char *) memman_alloc_4k(memman, 160 * 52);
-	sheet_setbuf(sht_back, buf_back, binfo->scrnx, binfo->scrny, -1); /* “§–¾F‚È‚µ */
+	sheet_setbuf(sht_back, buf_back, binfo->scrnx, binfo->scrny, -1); /* ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½È‚ï¿½ */
 	sheet_setbuf(sht_mouse, buf_mouse, 16, 16, 99);
-	sheet_setbuf(sht_win, buf_win, 160, 52, -1); /* “§–¾F‚È‚µ */
+	sheet_setbuf(sht_win, buf_win, 160, 52, -1); /* ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½È‚ï¿½ */
 	init_screen8(buf_back, binfo->scrnx, binfo->scrny);
 	init_mouse_cursor8(buf_mouse, 99);
 	make_window8(buf_win, 160, 52, "counter");
 	sheet_slide(sht_back, 0, 0);
-	mx = (binfo->scrnx - 16) / 2; /* ‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉÀ•WŒvZ */
+	mx = (binfo->scrnx - 16) / 2; /* ï¿½ï¿½Ê’ï¿½ï¿½ï¿½ï¿½É‚È‚ï¿½æ‚¤ï¿½Éï¿½ï¿½Wï¿½vï¿½Z */
 	my = (binfo->scrny - 28 - 16) / 2;
 	sheet_slide(sht_mouse, mx, my);
 	sheet_slide(sht_win, 80, 72);
@@ -94,7 +94,7 @@ void HariMain(void)
 				i = fifo8_get(&mousefifo);
 				io_sti();
 				if (mouse_decode(&mdec, i) != 0) {
-					/* ƒf[ƒ^‚ª3ƒoƒCƒg‘µ‚Á‚½‚Ì‚Å•\¦ */
+					/* ï¿½fï¿½[ï¿½^ï¿½ï¿½3ï¿½oï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Å•\ï¿½ï¿½ */
 					sprintf(s, "[lcr %4d %4d]", mdec.x, mdec.y);
 					if ((mdec.btn & 0x01) != 0) {
 						s[1] = 'L';
@@ -106,7 +106,7 @@ void HariMain(void)
 						s[2] = 'C';
 					}
 					putfonts8_asc_sht(sht_back, 32, 16, COL8_FFFFFF, COL8_008484, s, 15);
-					/* ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÚ“® */
+					/* ï¿½}ï¿½Eï¿½Xï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ */
 					mx += mdec.x;
 					my += mdec.y;
 					if (mx < 0) {
@@ -126,21 +126,21 @@ void HariMain(void)
 					sheet_slide(sht_mouse, mx, my);
 				}
 			} else if (fifo8_status(&timerfifo) != 0) {
-				i = fifo8_get(&timerfifo); /* ‚Æ‚è‚ ‚¦‚¸“Ç‚İ‚Şi‚©‚ç‚É‚·‚é‚½‚ß‚Éj */
+				i = fifo8_get(&timerfifo); /* ï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½Şiï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚Éj */
 				io_sti();
 				putfonts8_asc_sht(sht_back, 0, 64, COL8_FFFFFF, COL8_008484, "10[sec]", 7);
 			} else if (fifo8_status(&timerfifo2) != 0) {
-				i = fifo8_get(&timerfifo2); /* ‚Æ‚è‚ ‚¦‚¸“Ç‚İ‚Şi‚©‚ç‚É‚·‚é‚½‚ß‚Éj */
+				i = fifo8_get(&timerfifo2); /* ï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½Şiï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚Éj */
 				io_sti();
 				putfonts8_asc_sht(sht_back, 0, 80, COL8_FFFFFF, COL8_008484, "3[sec]", 6);
 			} else if (fifo8_status(&timerfifo3) != 0) {
 				i = fifo8_get(&timerfifo3);
 				io_sti();
 				if (i != 0) {
-					timer_init(timer3, &timerfifo3, 0); /* Ÿ‚Í0‚ğ */
+					timer_init(timer3, &timerfifo3, 0); /* ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ */
 					boxfill8(buf_back, binfo->scrnx, COL8_FFFFFF, 8, 96, 15, 111);
 				} else {
-					timer_init(timer3, &timerfifo3, 1); /* Ÿ‚Í1‚ğ */
+					timer_init(timer3, &timerfifo3, 1); /* ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ */
 					boxfill8(buf_back, binfo->scrnx, COL8_008484, 8, 96, 15, 111);
 				}
 				timer_settime(timer3, 50);
@@ -199,6 +199,14 @@ void make_window8(unsigned char *buf, int xsize, int ysize, char *title)
 	return;
 }
 
+/// @brief å…ˆæ¶‚ä¸ŠèƒŒæ™¯è‰²ï¼Œå†åœ¨ä¸Šé¢å†™å­—ç¬¦ï¼Œæœ€åå®Œæˆåˆ·æ–°(å­—ä½“éƒ½æ˜¯å®½8é«˜16)
+/// @param sht å›¾å±‚
+/// @param x å­—ç¬¦ä¸²å·¦ä¸Šè§’çš„xåæ ‡
+/// @param y å­—ç¬¦ä¸²å·¦ä¸Šè§’çš„yåæ ‡
+/// @param c å­—ç¬¦é¢œè‰²
+/// @param b èƒŒæ™¯é¢œè‰²
+/// @param s å­—ç¬¦ä¸²
+/// @param l å­—ç¬¦ä¸²é•¿åº¦
 void putfonts8_asc_sht(struct SHEET *sht, int x, int y, int c, int b, char *s, int l)
 {
 	boxfill8(sht->buf, sht->bxsize, b, x, y, x + l * 8 - 1, y + 15);

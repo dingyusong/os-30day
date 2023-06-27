@@ -1,4 +1,4 @@
-/* bootpack‚ÌƒƒCƒ“ */
+/* bootpackï¿½Ìƒï¿½ï¿½Cï¿½ï¿½ */
 
 #include "bootpack.h"
 #include <stdio.h>
@@ -22,17 +22,17 @@ void HariMain(void)
 
 	init_gdtidt();
 	init_pic();
-	io_sti(); /* IDT/PIC‚Ì‰Šú‰»‚ªI‚í‚Á‚½‚Ì‚ÅCPU‚ÌŠ„‚è‚İ‹Ö~‚ğ‰ğœ */
+	io_sti(); /* IDT/PICï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½CPUï¿½ÌŠï¿½ï¿½èï¿½İ‹Ö~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	fifo8_init(&keyfifo, 32, keybuf);
 	fifo8_init(&mousefifo, 128, mousebuf);
-	io_out8(PIC0_IMR, 0xf9); /* PIC1‚ÆƒL[ƒ{[ƒh‚ğ‹–‰Â(11111001) */
-	io_out8(PIC1_IMR, 0xef); /* ƒ}ƒEƒX‚ğ‹–‰Â(11101111) */
+	io_out8(PIC0_IMR, 0xf9); /* PIC1ï¿½ÆƒLï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(11111001) */
+	io_out8(PIC1_IMR, 0xef); /* ï¿½}ï¿½Eï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(11101111) */
 
 	init_keyboard();
 
 	init_palette();
 	init_screen8(binfo->vram, binfo->scrnx, binfo->scrny);
-	mx = (binfo->scrnx - 16) / 2; /* ‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉÀ•WŒvZ */
+	mx = (binfo->scrnx - 16) / 2; /* ï¿½ï¿½Ê’ï¿½ï¿½ï¿½ï¿½É‚È‚ï¿½æ‚¤ï¿½Éï¿½ï¿½Wï¿½vï¿½Z */
 	my = (binfo->scrny - 28 - 16) / 2;
 	init_mouse_cursor8(mcursor, COL8_008484);
 	putblock8_8(binfo->vram, binfo->scrnx, 16, 16, mx, my, mcursor, 16);
@@ -56,7 +56,7 @@ void HariMain(void)
 				i = fifo8_get(&mousefifo);
 				io_sti();
 				if (mouse_decode(&mdec, i) != 0) {
-					/* ƒf[ƒ^‚ª3ƒoƒCƒg‘µ‚Á‚½‚Ì‚Å•\¦ */
+					/* ï¿½fï¿½[ï¿½^ï¿½ï¿½3ï¿½oï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Å•\ï¿½ï¿½ */
 					sprintf(s, "[lcr %4d %4d]", mdec.x, mdec.y);
 					if ((mdec.btn & 0x01) != 0) {
 						s[1] = 'L';
@@ -84,7 +84,7 @@ void HariMain(void)
 
 void wait_KBC_sendready(void)
 {
-	/* ƒL[ƒ{[ƒhƒRƒ“ƒgƒ[ƒ‰‚ªƒf[ƒ^‘—M‰Â”\‚É‚È‚é‚Ì‚ğ‘Ò‚Â */
+	/* ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Mï¿½Â”\ï¿½É‚È‚ï¿½Ì‚ï¿½Ò‚ï¿½ */
 	for (;;) {
 		if ((io_in8(PORT_KEYSTA) & KEYSTA_SEND_NOTREADY) == 0) {
 			break;
@@ -95,7 +95,7 @@ void wait_KBC_sendready(void)
 
 void init_keyboard(void)
 {
-	/* ƒL[ƒ{[ƒhƒRƒ“ƒgƒ[ƒ‰‚Ì‰Šú‰» */
+	/* ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Rï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ */
 	wait_KBC_sendready();
 	io_out8(PORT_KEYCMD, KEYCMD_WRITE_MODE);
 	wait_KBC_sendready();
@@ -108,55 +108,55 @@ void init_keyboard(void)
 
 void enable_mouse(struct MOUSE_DEC *mdec)
 {
-	/* ƒ}ƒEƒX—LŒø */
+	/* ï¿½}ï¿½Eï¿½Xï¿½Lï¿½ï¿½ */
 	wait_KBC_sendready();
 	io_out8(PORT_KEYCMD, KEYCMD_SENDTO_MOUSE);
 	wait_KBC_sendready();
 	io_out8(PORT_KEYDAT, MOUSECMD_ENABLE);
-	/* ‚¤‚Ü‚­‚¢‚­‚ÆACK(0xfa)‚ª‘—M‚³‚ê‚Ä‚­‚é */
-	mdec->phase = 0; /* ƒ}ƒEƒX‚Ì0xfa‚ğ‘Ò‚Á‚Ä‚¢‚é’iŠK */
+	/* ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ACK(0xfa)ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ */
+	mdec->phase = 0; /* ï¿½}ï¿½Eï¿½Xï¿½ï¿½0xfaï¿½ï¿½Ò‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½iï¿½K */
 	return;
 }
 
 int mouse_decode(struct MOUSE_DEC *mdec, unsigned char dat)
 {
 	if (mdec->phase == 0) {
-		/* ƒ}ƒEƒX‚Ì0xfa‚ğ‘Ò‚Á‚Ä‚¢‚é’iŠK */
+		/* ï¿½}ï¿½Eï¿½Xï¿½ï¿½0xfaï¿½ï¿½Ò‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½iï¿½K */
 		if (dat == 0xfa) {
 			mdec->phase = 1;
 		}
 		return 0;
 	}
 	if (mdec->phase == 1) {
-		/* ƒ}ƒEƒX‚Ì1ƒoƒCƒg–Ú‚ğ‘Ò‚Á‚Ä‚¢‚é’iŠK */
+		/* MARK: å¯¹ä¸¤ä¸ªéƒ¨åˆ†éƒ½è¿›è¡Œäº†åˆ¤æ–­ï¼šè¿™ä¸ªifè¯­å¥ï¼Œç”¨äºåˆ¤æ–­ç¬¬ä¸€å­—èŠ‚ å¯¹ç§»åŠ¨æœ‰ååº”çš„éƒ¨åˆ†æ˜¯å¦åœ¨0~3çš„èŒƒå›´å†…;åŒæ—¶è¿˜è¦åˆ¤æ–­ç¬¬ä¸€å­—èŠ‚å¯¹ç‚¹å‡»æœ‰ååº”çš„ éƒ¨åˆ†æ˜¯å¦åœ¨8~Fçš„èŒƒå›´å†…ã€‚ */
 		if ((dat & 0xc8) == 0x08) {
-			/* ³‚µ‚¢1ƒoƒCƒg–Ú‚¾‚Á‚½ */
+			/* ç¬¬ä¸€ä¸ªå­—èŠ‚æ­£ç¡® */
 			mdec->buf[0] = dat;
 			mdec->phase = 2;
 		}
 		return 0;
 	}
 	if (mdec->phase == 2) {
-		/* ƒ}ƒEƒX‚Ì2ƒoƒCƒg–Ú‚ğ‘Ò‚Á‚Ä‚¢‚é’iŠK */
+		/* ï¿½}ï¿½Eï¿½Xï¿½ï¿½2ï¿½oï¿½Cï¿½gï¿½Ú‚ï¿½Ò‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½iï¿½K */
 		mdec->buf[1] = dat;
 		mdec->phase = 3;
 		return 0;
 	}
 	if (mdec->phase == 3) {
-		/* ƒ}ƒEƒX‚Ì3ƒoƒCƒg–Ú‚ğ‘Ò‚Á‚Ä‚¢‚é’iŠK */
+		/* ï¿½}ï¿½Eï¿½Xï¿½ï¿½3ï¿½oï¿½Cï¿½gï¿½Ú‚ï¿½Ò‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½iï¿½K */
 		mdec->buf[2] = dat;
 		mdec->phase = 1;
-		mdec->btn = mdec->buf[0] & 0x07;
+		mdec->btn = mdec->buf[0] & 0x07; // MARK: é¼ æ ‡é”®çš„çŠ¶æ€ï¼Œæ”¾åœ¨ buf[0]çš„ä½3ä½ï¼Œæˆ‘ä»¬åªå–å‡ºè¿™3ä½ã€‚åå…­è¿›åˆ¶çš„0x07ç›¸å½“äºäºŒè¿›åˆ¶çš„0000 0111ï¼Œå›  æ­¤é€šè¿‡ä¸è¿ç®—(&)ï¼Œå¯ä»¥å¾ˆé¡ºåˆ©åœ°å–å‡ºä½3ä½çš„å€¼ã€‚
 		mdec->x = mdec->buf[1];
 		mdec->y = mdec->buf[2];
-		if ((mdec->buf[0] & 0x10) != 0) {
-			mdec->x |= 0xffffff00;
+		if ((mdec->buf[0] & 0x10) != 0) { // MARK: é€šè¿‡ä¸è¿ç®—(&)ï¼Œå¯ä»¥å¾ˆé¡ºåˆ©åœ°å–å‡ºç¬¬ä¸€å­—èŠ‚çš„ç¬¬4ä½å’Œç¬¬5ä½ã€‚ç¬¬4ä½æ˜¯xæ–¹å‘çš„ç§»åŠ¨æ–¹å‘ï¼Œç¬¬5ä½æ˜¯yæ–¹å‘çš„ç§»åŠ¨æ–¹å‘ã€‚
+			mdec->x |= 0xffffff00;	// MARK: å¯¹äºxæ–¹å‘çš„ç§»åŠ¨ï¼Œç¬¬4ä½æ˜¯1çš„è¯ï¼Œå°±æ˜¯è´Ÿæ•°ï¼Œæ‰€ä»¥è¦æŠŠé«˜ä½è¡¥ä¸Š1ï¼Œå˜æˆ32ä½çš„è´Ÿæ•°ã€‚
 		}
 		if ((mdec->buf[0] & 0x20) != 0) {
-			mdec->y |= 0xffffff00;
+			mdec->y |= 0xffffff00;	// MARK: å¯¹äºyæ–¹å‘çš„ç§»åŠ¨ï¼Œç¬¬5ä½æ˜¯1çš„è¯ï¼Œå°±æ˜¯è´Ÿæ•°ï¼Œæ‰€ä»¥è¦æŠŠé«˜ä½è¡¥ä¸Š1ï¼Œå˜æˆ32ä½çš„è´Ÿæ•°ã€‚
 		}
-		mdec->y = - mdec->y; /* ƒ}ƒEƒX‚Å‚Íy•ûŒü‚Ì•„†‚ª‰æ–Ê‚Æ”½‘Î */
+		mdec->y = - mdec->y; /* é¼ æ ‡çš„yæ–¹å‘ä¸ç”»é¢ç¬¦å·ç›¸å */
 		return 1;
 	}
-	return -1; /* ‚±‚±‚É—ˆ‚é‚±‚Æ‚Í‚È‚¢‚Í‚¸ */
+	return -1; /* åº”è¯¥ä¸ä¼šåˆ°è¿™å„¿æ¥ */
 }

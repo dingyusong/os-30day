@@ -1,27 +1,27 @@
-/* FIFOƒ‰ƒCƒuƒ‰ƒŠ */
+/* FIFOï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ */
 
 #include "bootpack.h"
 
 #define FLAGS_OVERRUN		0x0001
 
 void fifo32_init(struct FIFO32 *fifo, int size, int *buf, struct TASK *task)
-/* FIFOƒoƒbƒtƒ@‚Ì‰Šú‰» */
+/* FIFOï¿½oï¿½bï¿½tï¿½@ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ */
 {
 	fifo->size = size;
 	fifo->buf = buf;
-	fifo->free = size; /* ‹ó‚« */
+	fifo->free = size; /* ï¿½ï¿½ */
 	fifo->flags = 0;
-	fifo->p = 0; /* ‘‚«ž‚ÝˆÊ’u */
-	fifo->q = 0; /* “Ç‚Ýž‚ÝˆÊ’u */
-	fifo->task = task; /* ƒf[ƒ^‚ª“ü‚Á‚½‚Æ‚«‚É‹N‚±‚·ƒ^ƒXƒN */
+	fifo->p = 0; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝˆÊ’u */
+	fifo->q = 0; /* ï¿½Ç‚Ýï¿½ï¿½ÝˆÊ’u */
+	fifo->task = task; /* MARKï¼šæœ‰æ•°æ®å†™å…¥æ—¶éœ€è¦å”¤é†’çš„ä»»åŠ¡ */
 	return;
 }
 
 int fifo32_put(struct FIFO32 *fifo, int data)
-/* FIFO‚Öƒf[ƒ^‚ð‘—‚èž‚ñ‚Å’~‚¦‚é */
+/* FIFOï¿½Öƒfï¿½[ï¿½^ï¿½ð‘—‚èžï¿½ï¿½Å’~ï¿½ï¿½ï¿½ï¿½ */
 {
 	if (fifo->free == 0) {
-		/* ‹ó‚«‚ª‚È‚­‚Ä‚ ‚Ó‚ê‚½ */
+		/* ï¿½ó‚«‚ï¿½ï¿½È‚ï¿½ï¿½Ä‚ï¿½ï¿½Ó‚ê‚½ */
 		fifo->flags |= FLAGS_OVERRUN;
 		return -1;
 	}
@@ -31,20 +31,20 @@ int fifo32_put(struct FIFO32 *fifo, int data)
 		fifo->p = 0;
 	}
 	fifo->free--;
-	if (fifo->task != 0) {
-		if (fifo->task->flags != 2) { /* ƒ^ƒXƒN‚ªQ‚Ä‚¢‚½‚ç */
-			task_run(fifo->task); /* ‹N‚±‚µ‚Ä‚ ‚°‚é */
+	if (fifo->task != 0) {	//MARK: ä»»åŠ¡å”¤é†’ æœ‰ä»»åŠ¡äº†
+		if (fifo->task->flags != 2) { /* å¦‚æžœä»»åŠ¡å¤„äºŽä¼‘çœ çŠ¶æ€ */
+			task_run(fifo->task); /* å°†ä»»åŠ¡å”¤é†’ */
 		}
 	}
 	return 0;
 }
 
 int fifo32_get(struct FIFO32 *fifo)
-/* FIFO‚©‚çƒf[ƒ^‚ðˆê‚Â‚Æ‚Á‚Ä‚­‚é */
+/* FIFOï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Â‚Æ‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ */
 {
 	int data;
 	if (fifo->free == fifo->size) {
-		/* ƒoƒbƒtƒ@‚ª‹ó‚Á‚Û‚Ì‚Æ‚«‚ÍA‚Æ‚è‚ ‚¦‚¸-1‚ª•Ô‚³‚ê‚é */
+		/* ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Ì‚Æ‚ï¿½ï¿½ÍAï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½-1ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ */
 		return -1;
 	}
 	data = fifo->buf[fifo->q];
@@ -57,7 +57,7 @@ int fifo32_get(struct FIFO32 *fifo)
 }
 
 int fifo32_status(struct FIFO32 *fifo)
-/* ‚Ç‚Ì‚­‚ç‚¢ƒf[ƒ^‚ª—­‚Ü‚Á‚Ä‚¢‚é‚©‚ð•ñ‚·‚é */
+/* ï¿½Ç‚Ì‚ï¿½ï¿½ç‚¢ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Ä‚ï¿½ï¿½é‚©ï¿½ï¿½ñ‚ï¿½ï¿½ï¿½ */
 {
 	return fifo->size - fifo->free;
 }

@@ -1,4 +1,4 @@
-/* ƒ^ƒCƒ}ŠÖŒW */
+/* ï¿½^ï¿½Cï¿½}ï¿½ÖŒW */
 
 #include "bootpack.h"
 
@@ -7,8 +7,8 @@
 
 struct TIMERCTL timerctl;
 
-#define TIMER_FLAGS_ALLOC		1	/* Šm•Û‚µ‚½ó‘Ô */
-#define TIMER_FLAGS_USING		2	/* ƒ^ƒCƒ}ì“®’† */
+#define TIMER_FLAGS_ALLOC		1	/* ï¿½mï¿½Û‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+#define TIMER_FLAGS_USING		2	/* ï¿½^ï¿½Cï¿½}ï¿½ì“®ï¿½ï¿½ */
 
 void init_pit(void)
 {
@@ -18,7 +18,7 @@ void init_pit(void)
 	io_out8(PIT_CNT0, 0x2e);
 	timerctl.count = 0;
 	for (i = 0; i < MAX_TIMER; i++) {
-		timerctl.timer[i].flags = 0; /* –¢g—p */
+		timerctl.timer[i].flags = 0; /* ï¿½ï¿½ï¿½gï¿½p */
 	}
 	return;
 }
@@ -32,12 +32,12 @@ struct TIMER *timer_alloc(void)
 			return &timerctl.timer[i];
 		}
 	}
-	return 0; /* Œ©‚Â‚©‚ç‚È‚©‚Á‚½ */
+	return 0; /* ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ */
 }
 
 void timer_free(struct TIMER *timer)
 {
-	timer->flags = 0; /* –¢g—p */
+	timer->flags = 0; /* ï¿½ï¿½ï¿½gï¿½p */
 	return;
 }
 
@@ -58,10 +58,11 @@ void timer_settime(struct TIMER *timer, unsigned int timeout)
 void inthandler20(int *esp)
 {
 	int i;
-	io_out8(PIC0_OCW2, 0x60);	/* IRQ-00ó•tŠ®—¹‚ğPIC‚É’Ê’m */
+	io_out8(PIC0_OCW2, 0x60);	/* IRQ-00ï¿½ï¿½tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PICï¿½É’Ê’m */
 	timerctl.count++;
 	for (i = 0; i < MAX_TIMER; i++) {
 		if (timerctl.timer[i].flags == TIMER_FLAGS_USING) {
+			//ä¼˜åŒ–ä¸€ä¸‹ï¼Œå‡å°‘ä¸­æ–­å¤„ç†çš„æ—¶é—´ï¼Œå°‘åšäº†ä¸å°‘å‡æ³•åŠå†…å­˜ä¿å­˜å·¥ä½œï¼
 			if (timerctl.timer[i].timeout <= timerctl.count) {
 				timerctl.timer[i].flags = TIMER_FLAGS_ALLOC;
 				fifo8_put(timerctl.timer[i].fifo, timerctl.timer[i].data);

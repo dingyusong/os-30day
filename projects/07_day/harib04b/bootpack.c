@@ -1,4 +1,4 @@
-/* bootpack�̃��C�� */
+/* bootpack�̃��C�� */
 
 #include "bootpack.h"
 #include <stdio.h>
@@ -13,14 +13,14 @@ void HariMain(void)
 
 	init_gdtidt();
 	init_pic();
-	io_sti(); /* IDT/PIC�̏��������I������̂�CPU�̊��荞�݋֎~������ */
+	io_sti(); /* IDT/PIC�̏��������I������̂�CPU�̊��荞�݋֎~������ */
 
-	io_out8(PIC0_IMR, 0xf9); /* PIC1�ƃL�[�{�[�h������(11111001) */
-	io_out8(PIC1_IMR, 0xef); /* �}�E�X������(11101111) */
+	io_out8(PIC0_IMR, 0xf9); /* PIC1�ƃL�[�{�[�h������(11111001) */
+	io_out8(PIC1_IMR, 0xef); /* �}�E�X������(11101111) */
 
 	init_palette();
 	init_screen8(binfo->vram, binfo->scrnx, binfo->scrny);
-	mx = (binfo->scrnx - 16) / 2; /* ��ʒ����ɂȂ�悤�ɍ��W�v�Z */
+	mx = (binfo->scrnx - 16) / 2; /* ��ʒ����ɂȂ�悤�ɍ��W�v�Z */
 	my = (binfo->scrny - 28 - 16) / 2;
 	init_mouse_cursor8(mcursor, COL8_008484);
 	putblock8_8(binfo->vram, binfo->scrnx, 16, 16, mx, my, mcursor, 16);
@@ -30,7 +30,7 @@ void HariMain(void)
 	for (;;) {
 		io_cli();
 		if (keybuf.flag == 0) {
-			io_stihlt();
+			io_stihlt(); 		//MARK: 开中断，然后休眠.根据 CPU的规范，机器语言的STI指令之后，如果紧跟着HLT指令，那么就暂不受 理这两条指令之间的中断，而要等到HLT指令之后才受理，所以使用io_stihlt 函数就能克服这一问题。
 		} else {
 			i = keybuf.data;
 			keybuf.flag = 0;

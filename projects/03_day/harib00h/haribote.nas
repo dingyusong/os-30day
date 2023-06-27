@@ -1,25 +1,25 @@
 ; haribote-os
 ; TAB=4
 
-; BOOT_INFOŠÖŒW
-CYLS	EQU		0x0ff0			; ƒu[ƒgƒZƒNƒ^‚ªÝ’è‚·‚é
+; BOOT_INFO
+CYLS	EQU		0x0ff0			; MARK: è®¾å®šå¯åŠ¨åŒº
 LEDS	EQU		0x0ff1
-VMODE	EQU		0x0ff2			; F”‚ÉŠÖ‚·‚éî•ñB‰½ƒrƒbƒgƒJƒ‰[‚©H
-SCRNX	EQU		0x0ff4			; ‰ð‘œ“x‚ÌX
-SCRNY	EQU		0x0ff6			; ‰ð‘œ“x‚ÌY
-VRAM	EQU		0x0ff8			; ƒOƒ‰ƒtƒBƒbƒNƒoƒbƒtƒ@‚ÌŠJŽn”Ô’n
+VMODE	EQU		0x0ff2			; MARK: å…³äºŽé¢œè‰²çš„æ•°ç›®ä¿¡æ¯ï¼Œé¢œè‰²çš„ä½ç½®
+SCRNX	EQU		0x0ff4			; MARK: åˆ†è¾¨çŽ‡çš„X
+SCRNY	EQU		0x0ff6			; MARK: åˆ†è¾¨çŽ‡çš„Y
+VRAM	EQU		0x0ff8			; MARK: å›¾åƒç¼“å†²åŒºçš„å¼€å§‹åœ°å€
 
-		ORG		0xc200			; ‚±‚ÌƒvƒƒOƒ‰ƒ€‚ª‚Ç‚±‚É“Ç‚Ýž‚Ü‚ê‚é‚Ì‚©
+		ORG		0xc200			; MARK: è¿™ä¸ªç¨‹åºè¦è¢«è£…è½½åˆ°å†…å­˜çš„ä»€ä¹ˆåœ°æ–¹
 
-		MOV		AL,0x13			; VGAƒOƒ‰ƒtƒBƒbƒNƒXA320x200x8bitƒJƒ‰[
+		MOV		AL,0x13			; MARK: VGAæ˜¾å¡ï¼Œ320*200*8ä½å½©è‰²
 		MOV		AH,0x00
 		INT		0x10
-		MOV		BYTE [VMODE],8	; ‰æ–Êƒ‚[ƒh‚ðƒƒ‚‚·‚é
+		MOV		BYTE [VMODE],8	; MARK: è®°å½•ç”»é¢æ¨¡å¼
 		MOV		WORD [SCRNX],320
 		MOV		WORD [SCRNY],200
 		MOV		DWORD [VRAM],0x000a0000
 
-; ƒL[ƒ{[ƒh‚ÌLEDó‘Ô‚ðBIOS‚É‹³‚¦‚Ä‚à‚ç‚¤
+; ç”¨BIOSå–å¾—é”®ç›˜ä¸Šå„ç§LEDæŒ‡ç¤ºç¯çš„çŠ¶æ€
 
 		MOV		AH,0x02
 		INT		0x16 			; keyboard BIOS
